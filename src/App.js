@@ -2,7 +2,10 @@ import React from "react";
 
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpence/NewExpense";
-
+/**
+ * Which value should you pass to event listener props like onClick? => A pointer at that function
+ * that should execute when the event occurs
+ */
 const App = () => {
   const expenses = [
     {
@@ -33,9 +36,14 @@ const App = () => {
   //   React.createElement(Expenses, { items: expenses })
   // );
 
+  const addExpenseHandler = (expense) => {
+    console.log("Hi App");
+    console.log(expense);
+  };
+
   return (
     <div>
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );
