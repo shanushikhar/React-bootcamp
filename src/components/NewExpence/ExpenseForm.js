@@ -1,29 +1,13 @@
 import { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = ({ onSaveExpenseDate }) => {
+const ExpenseForm = ({ onSaveExpenseData, onCancel }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
 
-  /**
-   * One State to handle all input
-   */
-  //   const [userinput, setUserInput] = useState({
-  //     enteredTitle: "",
-  //     enteredAmount: "",
-  //     enteredDate: "",
-  //   });
-
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
-
-    // setUserInput((prevValue) => {
-    //   return {
-    //     ...prevValue,
-    //     enteredTitle: e.target.value,
-    //   };
-    // });
   };
   const amountChangeHandler = (e) => {
     setEnteredAmount(e.target.value);
@@ -38,7 +22,10 @@ const ExpenseForm = ({ onSaveExpenseDate }) => {
       amount: enteredAmount,
       date: new Date(enteredDate),
     };
-    onSaveExpenseDate(expenseData);
+    onSaveExpenseData(expenseData);
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
 
   return (
@@ -68,6 +55,9 @@ const ExpenseForm = ({ onSaveExpenseDate }) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
