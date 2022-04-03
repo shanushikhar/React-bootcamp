@@ -6,9 +6,21 @@
 
 html {
   font-family: "Noto Sans JP", sans-serif;
-  background: #ece2e2;
 }
 
 body {
   margin: 0;
+  background-color: #e0e9f5;
+}
+
+main {
+  margin-top: 7rem;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+p {
+  color: #042b5f;
 }
