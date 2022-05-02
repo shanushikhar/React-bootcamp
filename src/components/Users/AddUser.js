@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Reactdom from "react-dom";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import classes from "./AddUser.module.css";
@@ -39,12 +38,9 @@ const AddUser = ({ getUserDetails }) => {
     setError(null);
   };
 
-  function ErrorModal() {
-    return error && <ErrorModel removeError={removeError} errorValue={error} />;
-  }
-
-  function Cardmodal() {
-    return (
+  return (
+    <Wrapper>
+      {error && <ErrorModel removeError={removeError} errorValue={error} />}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">Username</label>
@@ -61,19 +57,6 @@ const AddUser = ({ getUserDetails }) => {
           </Button>
         </form>
       </Card>
-    );
-  }
-
-  return (
-    <Wrapper>
-      {Reactdom.createPortal(
-        <ErrorModal removeError={removeError} errorValue={error} />,
-        document.getElementById("error-background")
-      )}
-      {Reactdom.createPortal(
-        <Cardmodal />,
-        document.getElementById("error-cardinfo")
-      )}
     </Wrapper>
   );
 };
