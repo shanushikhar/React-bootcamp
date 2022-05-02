@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Reactdom from "react-dom";
+import React, { useState, useRef } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import classes from "./AddUser.module.css";
@@ -7,31 +6,28 @@ import ErrorModel from "../UI/ErrorModel";
 import Wrapper from "../../helpers/Wrapper";
 
 const AddUser = ({ getUserDetails }) => {
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
   const [error, setError] = useState(null);
+
+  const inputNameRef = useRef();
+  const inputAgeRef = useRef();
 
   const addUserHandler = (event) => {
     event.preventDefault();
-    if (username.trim().length === 0 || age.trim().length == 0) {
+    let userName = inputNameRef.current.value;
+    let userAge = inputAgeRef.current.value;
+
+    if (userName.trim().length === 0 || userAge.trim().length == 0) {
       setError({ name: "enter name", age: "enter age" });
       return;
     }
-    if (+age < 1) {
+    if (+userAge < 1) {
       setError({ age: "enter age greater than 0" });
       return;
     }
-    console.log({ username, age });
-    getUserDetails(username, age);
-    setUsername("");
-    setAge("");
-  };
 
-  const getUserValue = (e) => {
-    setUsername(e.target.value);
-  };
-  const getAgeValue = (e) => {
-    setAge(e.target.value);
+    getUserDetails(userName, userAge);
+    inputNameRef.current.value = "";
+    inputAgeRef.current.value = "";
   };
 
   const removeError = () => {
@@ -39,41 +35,20 @@ const AddUser = ({ getUserDetails }) => {
     setError(null);
   };
 
-  function ErrorModal() {
-    return error && <ErrorModel removeError={removeError} errorValue={error} />;
-  }
-
-  function Cardmodal() {
-    return (
+  return (
+    <Wrapper>
+      {error && <ErrorModel removeError={removeError} errorValue={error} />}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">Username</label>
-          <input
-            value={username}
-            onChange={getUserValue}
-            id="username"
-            type="text"
-          />
+          <input ref={inputNameRef} id="username" type="text" />
           <label htmlFor="age">Age (Years)</label>
-          <input value={age} onChange={getAgeValue} id="age" type="number" />
+          <input ref={inputAgeRef} id="age" type="number" />
           <Button onClick={addUserHandler} type="submit">
             Add User
           </Button>
         </form>
       </Card>
-    );
-  }
-
-  return (
-    <Wrapper>
-      {Reactdom.createPortal(
-        <ErrorModal removeError={removeError} errorValue={error} />,
-        document.getElementById("error-background")
-      )}
-      {Reactdom.createPortal(
-        <Cardmodal />,
-        document.getElementById("error-cardinfo")
-      )}
     </Wrapper>
   );
 };
