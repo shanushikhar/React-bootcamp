@@ -1,4 +1,10 @@
-import React, { useEffect, useReducer, useState, useContext } from "react";
+import React, {
+  useEffect,
+  useReducer,
+  useState,
+  useContext,
+  useRef,
+} from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -33,6 +39,8 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   const context = useContext(AuthContext);
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
@@ -78,13 +86,22 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    context.onLogin(emailState.value, passwordState.value);
+    if (formIsValid) {
+      context.onLogin(emailState.value, passwordState.value);
+    } else if (!emailVal) {
+      emailRef.current.adjustFocus();
+    } else {
+      passwordRef.current.adjustFocus();
+    }
   };
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <Input
+          // ref can only be used to get Input<in this case> DOM element
+          // The ref prop is supported on all built-in HTML Components
+          ref={emailRef}
           isValid={emailVal}
           id="email"
           type="email"
@@ -94,6 +111,7 @@ const Login = (props) => {
           validateFormHandler={validateEmailHandler}
         />
         <Input
+          ref={passwordRef}
           isValid={passwordVal}
           id="password"
           type="password"
@@ -104,7 +122,7 @@ const Login = (props) => {
         />
 
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn}>
             Login
           </Button>
         </div>
