@@ -2,7 +2,7 @@ import classes from "../../Login/Login.module.css";
 
 const Input = (props) => {
   // we have to use props only to make this input field dynamic
-  // if we use context api then it will be relevant to particular field's context
+  // if we use context api then it will be relevant to particular field's context.
   return (
     <div
       className={`${classes.control} ${
