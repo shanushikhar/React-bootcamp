@@ -1,8 +1,9 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useContext } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../store/context";
 
 const emailReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
@@ -12,10 +13,10 @@ const emailReducer = (state, action) => {
     // state will give you the current state's value < value,isValid > at that moment
     return { value: state.value, isValid: state.value.includes("@") };
   }
-  return { value: "", isValid: false };
+  return state;
 };
 const passwordReducer = (state, action) => {
-  console.log(state, action);
+  //console.log(state, action);
   if (action.type === "USER_INPUT") {
     // we can remain the type same in both cases
     return { value: action.val, isValid: action.val.trim().length > 6 };
@@ -29,6 +30,8 @@ const passwordReducer = (state, action) => {
 
 const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
+
+  const context = useContext(AuthContext);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
@@ -45,13 +48,13 @@ const Login = (props) => {
   useEffect(() => {
     //console.log("useEffect part");
     let timer = setTimeout(() => {
-      console.log("settimeout part");
+      //console.log("settimeout part");
       setFormIsValid(emailVal && passwordVal);
     }, 1000); // de-bouncing
 
     return () => {
       // cleanup fn will execute 1st <after 1st/inital render>
-      console.log("cleanup part");
+      // console.log("cleanup part");
       clearTimeout(timer);
     };
   }, [emailVal, passwordVal]);
@@ -73,8 +76,9 @@ const Login = (props) => {
   };
 
   const submitHandler = (event) => {
+    console.log("called");
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    context.onLogin(emailState.value, passwordState.value);
   };
 
   return (
