@@ -3,5 +3,11 @@ import ReactDOM from "react-dom";
 
 import "./index.css";
 import App from "./App";
+import { ModalContextProvider } from "./store/modal-context";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <ModalContextProvider>
+    <App />
+  </ModalContextProvider>,
+  document.getElementById("root")
+);
