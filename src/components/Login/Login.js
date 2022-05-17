@@ -59,7 +59,7 @@ const Login = (props) => {
     let timer = setTimeout(() => {
       //console.log("settimeout part");
       setFormIsValid(emailVal && passwordVal);
-    }, 1000); // de-bouncing
+    }, 1000); // de-bouncing concepts
 
     return () => {
       // cleanup fn will execute 1st <after 1st/inital render>
