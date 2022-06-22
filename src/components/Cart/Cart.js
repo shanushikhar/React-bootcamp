@@ -3,6 +3,7 @@ import cartContext from "../../store/cart-context";
 import ModalContext from "../../store/modal-context";
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
+import CartItem from "./CartItem";
 
 const Cart = (props) => {
   const context = useContext(ModalContext);
@@ -11,10 +12,21 @@ const Cart = (props) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItem = cartCtx.items.length > 0;
 
+  const cartItemAddHandler = (item) => {};
+  const cartItemRemoveHandler = (id) => {};
+
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
-        <li key={item.id}>{item.name}</li>
+        <CartItem
+          key={item.id}
+          // added bind so that we can pass id as an argument
+          onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          onAdd={cartItemAddHandler.bind(null, item)}
+          name={item.name}
+          price={item.price}
+          amount={item.amount}
+        />
       ))}
     </ul>
   );
