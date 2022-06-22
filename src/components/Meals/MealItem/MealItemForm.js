@@ -21,7 +21,7 @@ const MealItemForm = (props) => {
       setErrorMsg(true);
       return;
     }
-
+    // passing to parent because it needs more data than amount only
     props.addToCart(enteredAmountNumber);
 
     // console.log(typeof +inputAmountRef.current.value);
