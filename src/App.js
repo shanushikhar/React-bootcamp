@@ -18,9 +18,11 @@ function App() {
     and that is treated as a brand new object
  */
 
+  const memoisedArray = useMemo(() => [5, 3, 1, 10, 9], []);
+
   return (
     <div className="app">
-      <DemoList title={listTitle} items={[5, 3, 1, 10, 9]} />
+      <DemoList title={listTitle} items={memoisedArray} />
       <Button onClick={changeTitleHandler}>Change List Title</Button>
     </div>
   );
