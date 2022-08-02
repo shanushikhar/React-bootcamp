@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import Button from "./components/UI/Button/Button";
 import DemoOutput from "./components/Demo/DemoOutput";
@@ -27,14 +27,15 @@ function App() {
       should be reused when the app component rerenders.
   */
 
-  const toggleParagraphHandler = () => {
+  const toggleParagraphHandler = useCallback(() => {
     setShowParagraph((prevShowParagraph) => !prevShowParagraph);
-  };
+  }, []);
 
   return (
     <div className="app">
       <h1>Hi there!</h1>
       <DemoOutput show={false} />
+      {/* <DemoOutput show={toggleParagraphHandler} /> */}
       <Button onClick={toggleParagraphHandler}>Toggle Paragraph!</Button>
     </div>
   );
