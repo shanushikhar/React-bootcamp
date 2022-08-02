@@ -1,42 +1,27 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 
-import Button from "./components/UI/Button/Button";
-import DemoOutput from "./components/Demo/DemoOutput";
 import "./App.css";
+import DemoList from "./components/Demo/DemoList";
+import Button from "./components/UI/Button/Button";
 
 function App() {
-  const [showParagraph, setShowParagraph] = useState(false);
+  const [listTitle, setListTitle] = useState("My List");
 
-  console.log("APP RUNNING");
-
-  /**
-   *  it will save the function in React's internal storage
-      and we'll always reuse that same function object
-      when this component function executes.
-   */
-
-  /** no need to pass setShowParagraph as a dependency array
-       * with help of Use Callback probably
-          that this will never change so that this will always
-          be the same function object.
-       */
-
-  /** so [] means
-   * it has no dependencies
-      and the data for always the same function object
-      should be reused when the app component rerenders.
-  */
-
-  const toggleParagraphHandler = useCallback(() => {
-    setShowParagraph((prevShowParagraph) => !prevShowParagraph);
+  const changeTitleHandler = useCallback(() => {
+    setListTitle("New Title");
   }, []);
+  /**
+ * we always create a new array here.
+    So even if it's technically a similar array
+    with the same values and the same order,
+    it's still technically a new array in memory,
+    and that is treated as a brand new object
+ */
 
   return (
     <div className="app">
-      <h1>Hi there!</h1>
-      <DemoOutput show={false} />
-      {/* <DemoOutput show={toggleParagraphHandler} /> */}
-      <Button onClick={toggleParagraphHandler}>Toggle Paragraph!</Button>
+      <DemoList title={listTitle} items={[5, 3, 1, 10, 9]} />
+      <Button onClick={changeTitleHandler}>Change List Title</Button>
     </div>
   );
 }
