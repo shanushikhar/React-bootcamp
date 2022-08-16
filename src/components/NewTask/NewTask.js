@@ -1,43 +1,32 @@
 import { useState } from "react";
+import useHttp from "../Hooks/use-http";
 
 import Section from "../UI/Section";
 import TaskForm from "./TaskForm";
 
 const NewTask = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendRequest } = useHttp();
+
+  const taskData = (bindingTextBody, dataFromHooks) => {
+    const generatedId = dataFromHooks.name; // firebase-specific => "name" contains generated id
+    const createdTask = { id: generatedId, text: bindingTextBody };
+    // console.log({ createdTask });
+
+    props.onAddTask(createdTask);
+  };
 
   const enterTaskHandler = async (taskText) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        "https://hackathon-2639b-default-rtdb.firebaseio.com/tasks.json",
-        {
-          method: "POST",
-          body: JSON.stringify({ text: taskText }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Request failed!");
-      }
-
-      const data = await response.json();
-      console.log({ data });
-
-      const generatedId = data.name; // firebase-specific => "name" contains generated id
-      const createdTask = { id: generatedId, text: taskText };
-      console.log({ createdTask });
-
-      props.onAddTask(createdTask);
-    } catch (err) {
-      setError(err.message || "Something went wrong!");
-    }
-    setIsLoading(false);
+    sendRequest(
+      {
+        url: "https://hackathon-2639b-default-rtdb.firebaseio.com/tasks.json",
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: { text: taskText },
+      },
+      taskData.bind(null, taskText)
+    );
   };
 
   return (
