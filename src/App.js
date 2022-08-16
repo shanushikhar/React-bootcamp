@@ -30,8 +30,6 @@ function App() {
     setTasks((prevTasks) => prevTasks.concat(task));
   };
 
-  console.log("callling app.js");
-
   return (
     <React.Fragment>
       <NewTask onAddTask={taskAddHandler} />
