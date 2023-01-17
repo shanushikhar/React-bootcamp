@@ -7,7 +7,27 @@ const ModalContext = React.createContext({
 });
 
 export const ModalContextProvider = (props) => {
-  return <>{props.children}</>;
+  const [cartModal, setCartModal] = useState(false);
+
+  const openModalHandler = () => {
+    setCartModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setCartModal(false);
+  };
+
+  const cartValue = {
+    modalIsOpen: cartModal,
+    openModal: openModalHandler,
+    closeModal: closeModalHandler,
+  };
+
+  return (
+    <ModalContext.Provider value={cartValue}>
+      {props.children}
+    </ModalContext.Provider>
+  );
 };
 
 export default ModalContext;

@@ -31,7 +31,15 @@ const DUMMY_MEALS = [
 
 const AvailableMeals = () => {
   // showing the meals and using MealItem component
-  const mealsList = DUMMY_MEALS.map((meal) => <MealItem />);
+  const mealsList = DUMMY_MEALS.map((meal) => (
+    <MealItem
+      key={meal.id}
+      id={meal.id}
+      name={meal.name}
+      description={meal.description}
+      price={meal.price}
+    />
+  ));
 
   return (
     <section className={classes.meals}>

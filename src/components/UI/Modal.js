@@ -6,7 +6,7 @@ import classes from "./Modal.module.css";
 
 const Backdrop = (props) => {
   const context = useContext(ModalContext);
-  return <div className={classes.backdrop} />;
+  return <div className={classes.backdrop} onClick={context.closeModal} />;
 };
 
 const ModalOverlay = (props) => {
@@ -22,6 +22,7 @@ const Modal = (props) => {
     <Fragment>
       <Backdrop />
 
+      {/* showing the cart details when click the cart button */}
       <ModalOverlay>{props.children}</ModalOverlay>
     </Fragment>
   );
