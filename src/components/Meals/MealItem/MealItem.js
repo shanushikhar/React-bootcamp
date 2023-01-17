@@ -9,12 +9,7 @@ const MealItem = (props) => {
   const price = `$${props.price.toFixed(2)}`;
 
   const addToCartHandler = (amount) => {
-    cartCtx.addItem({
-      id: props.id,
-      name: props.name,
-      price: props.price,
-      amount,
-    });
+    // logic to add item in cart
   };
 
   return (

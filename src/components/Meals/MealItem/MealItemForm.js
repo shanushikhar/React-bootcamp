@@ -3,34 +3,13 @@ import Input from "../../UI/Input";
 import classes from "./MealItemForm.module.css";
 
 const MealItemForm = (props) => {
-  const inputAmountRef = useRef();
-  const [errorMsg, setErrorMsg] = useState(false);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    const enteredAmount = inputAmountRef.current.value;
-    const enteredAmountNumber = +enteredAmount;
-
-    if (
-      enteredAmount.trim().length === 0 ||
-      enteredAmountNumber < 1 ||
-      enteredAmountNumber > 5
-    ) {
-      console.log("called");
-      setErrorMsg(true);
-      return;
-    }
-    // passing to parent because it needs more data than amount only
-    props.addToCart(enteredAmountNumber);
-
-    // console.log(typeof +inputAmountRef.current.value);
-  };
+  // all logic when adding item in card like length should be greater than 0, greater than 1 and lessa than 5
+  // show error message if anything misses
+  // pass the props value to parent
 
   return (
-    <form className={classes.form} onSubmit={submitHandler}>
+    <form className={classes.form}>
       <Input
-        ref={inputAmountRef}
         label="Amount"
         input={{
           id: "amount_" + props.id,
@@ -42,7 +21,7 @@ const MealItemForm = (props) => {
         }}
       />
       <button>+ Add</button>
-      {errorMsg && <p>Please enter value between 1 to 5</p>}
+      {/* {errorMsg && <p>Please enter value between 1 to 5</p>} */}
     </form>
   );
 };

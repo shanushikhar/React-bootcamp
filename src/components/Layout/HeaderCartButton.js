@@ -10,20 +10,13 @@ const HeaderCartButton = (props) => {
   const [btnHighlighted, setishighlighted] = useState(false);
 
   const { items } = cartcontext;
-  const numberOfCartItem = items.reduce((currentVal, items) => {
-    return currentVal + items.amount;
-  }, 0);
+  // total item count for cart when adding
+  const numberOfCartItem = null;
 
-  const btnClasses = `${classes.button} ${btnHighlighted ? classes.bump : ""}`;
+  const btnClasses = `${classes.button} ${btnHighlighted}`;
 
   useEffect(() => {
-    if (items.length === 0) return;
-    setishighlighted(true);
-
-    const timer = setTimeout(() => {
-      setishighlighted(false);
-    }, 300);
-    return () => clearTimeout(timer);
+    // it should bump when adding new item
   }, [items]);
 
   return (

@@ -6,11 +6,9 @@ import Meals from "./components/Meals/Meals";
 import ModalContext from "./store/modal-context";
 
 function App() {
-  const context = useContext(ModalContext);
-
   return (
     <Fragment>
-      {context.modalIsOpen && <Cart />}
+      {<Cart />}
       <Header />
       <main>
         <Meals />

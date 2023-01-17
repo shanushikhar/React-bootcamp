@@ -7,26 +7,7 @@ const ModalContext = React.createContext({
 });
 
 export const ModalContextProvider = (props) => {
-  const [modal, setModal] = useState(false);
-
-  const openModal = () => {
-    setModal(true);
-  };
-  const closeModal = () => {
-    setModal(false);
-  };
-
-  return (
-    <ModalContext.Provider
-      value={{
-        modalIsOpen: modal,
-        openModal: openModal,
-        closeModal: closeModal,
-      }}
-    >
-      {props.children}
-    </ModalContext.Provider>
-  );
+  return <>{props.children}</>;
 };
 
 export default ModalContext;
