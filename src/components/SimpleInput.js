@@ -27,7 +27,7 @@ const SimpleInput = (props) => {
   };
 
   const inputHandler = (e) => {
-    setInput(e.target.value.trim());
+    setInput(e.target.value.trim);
     setError(null);
   };
 
