@@ -32,7 +32,7 @@ const SimpleInput = (props) => {
     e.preventDefault();
 
     // extra check
-    if (!enteredName) return;
+    if (!formIsValid) return;
 
     resetNameInput();
     resetEmailInput();
