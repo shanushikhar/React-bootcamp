@@ -1,45 +1,29 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useState } from 'react';
 
-import Tasks from "./components/Tasks/Tasks";
-import NewTask from "./components/NewTask/NewTask";
-import useHttp from "./components/Hooks/use-http";
+import Header from './components/Layout/Header';
+import Meals from './components/Meals/Meals';
+import Cart from './components/Cart/Cart';
+import CartProvider from './store/CartProvider';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [cartIsShown, setCartIsShown] = useState(false);
 
-  const { isLoading, error, sendRequest: fetchTasks } = useHttp();
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
 
-  useEffect(() => {
-    const responseFromHook = (taskObj) => {
-      const loadedTasks = [];
-
-      for (const taskKey in taskObj) {
-        loadedTasks.push({ id: taskKey, text: taskObj[taskKey].text });
-      }
-
-      setTasks(loadedTasks);
-    };
-
-    fetchTasks(
-      { url: "https://hackathon-2639b-default-rtdb.firebaseio.com/tasks.json" },
-      responseFromHook
-    );
-  }, [fetchTasks]);
-
-  const taskAddHandler = (task) => {
-    setTasks((prevTasks) => prevTasks.concat(task));
+  const hideCartHandler = () => {
+    setCartIsShown(false);
   };
 
   return (
-    <React.Fragment>
-      <NewTask onAddTask={taskAddHandler} />
-      <Tasks
-        items={tasks}
-        loading={isLoading}
-        error={error}
-        onFetch={fetchTasks}
-      />
-    </React.Fragment>
+    <CartProvider>
+      {cartIsShown && <Cart onClose={hideCartHandler} />}
+      <Header onShowCart={showCartHandler} />
+      <main>
+        <Meals />
+      </main>
+    </CartProvider>
   );
 }
 
