@@ -1,7 +1,7 @@
 import classes from "./CartItem.module.css";
 
 import { useDispatch } from "react-redux";
-import { cartAddActions, removeCartActions } from "../store";
+import { cartAddActions, removeCartActions } from "../store/cart-slice";
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
