@@ -29,3 +29,8 @@ button:active {
   border-color: #1ac5d1;
   color: white;
 }
+
+main{
+  margin: 5rem auto;
+  text-align: center;
+}
