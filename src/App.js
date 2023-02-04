@@ -1,56 +1,24 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Cart from "./components/Cart/Cart";
-import Layout from "./components/Layout/Layout";
-import Products from "./components/Shop/Products";
-import Notification from "../src/components/UI/Notification";
-import {
-  cartPostActions,
-  cartGetAction,
-} from "./components/store/cart-actions";
+import React from "react";
 
-let isFirstTime = true;
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Header from "./components/UI/Header";
+import Home from "./pages/Home";
+import Product from "./pages/Product";
+import Rootlayour from "./pages/Root";
 
-// status, title, message
-function App() {
-  const cartData = useSelector((state) => state.cart);
-  const notification = useSelector((state) => state.myui.uiNotification);
-  const dispatch = useDispatch();
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Rootlayour />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/products", element: <Product /> },
+    ],
+  },
+]);
 
-  useEffect(() => {
-    dispatch(cartGetAction());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isFirstTime) {
-      isFirstTime = false;
-      return;
-    }
-    if (cartData.changeFromLocal) {
-      dispatch(
-        cartPostActions({
-          items: cartData.items,
-          totalItem: cartData.totalItem,
-        })
-      );
-    }
-  }, [cartData, dispatch]);
-
-  return (
-    <>
-      {notification && (
-        <Notification
-          status={notification.status}
-          title={notification.title}
-          message={notification.message}
-        />
-      )}
-      <Layout>
-        <Cart />
-        <Products />
-      </Layout>
-    </>
-  );
-}
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;
