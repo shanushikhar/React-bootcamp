@@ -4,9 +4,10 @@ import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Notification from "../src/components/UI/Notification";
-import { uiAction } from "./components/store/ui-slice";
-import { current } from "@reduxjs/toolkit";
-import { cartActions } from "./components/store/cart-actions";
+import {
+  cartPostActions,
+  cartGetAction,
+} from "./components/store/cart-actions";
 
 let isFirstTime = true;
 
@@ -17,12 +18,22 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(cartGetAction());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (isFirstTime) {
       isFirstTime = false;
       return;
     }
-
-    dispatch(cartActions(cartData));
+    if (cartData.changeFromLocal) {
+      dispatch(
+        cartPostActions({
+          items: cartData.items,
+          totalItem: cartData.totalItem,
+        })
+      );
+    }
   }, [cartData, dispatch]);
 
   return (
