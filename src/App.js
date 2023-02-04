@@ -13,10 +13,11 @@ const router = createBrowserRouter([
     path: "/",
     errorElement: <Error />,
     element: <Rootlayour />,
+    // absolute path start with / and if remove / then call it relative path
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/products", element: <Product /> },
-      { path: "/products/:productID", element: <ProductDetails /> },
+      { index: true, element: <Home /> }, // path:''
+      { path: "products", element: <Product /> },
+      { path: "products/:productID", element: <ProductDetails /> },
     ],
   },
 ]);
