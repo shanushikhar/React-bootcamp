@@ -1,16 +1,16 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import Header from "../components/UI/Header";
-const Root = () => {
+import { Outlet } from 'react-router-dom';
+
+import MainNavigation from '../components/MainNavigation';
+
+function RootLayout() {
   return (
     <>
-      <Header />
-      {/* Outlet is a place where Child component should render */}
+      <MainNavigation />
       <main>
         <Outlet />
       </main>
     </>
   );
-};
+}
 
-export default Root;
+export default RootLayout;
