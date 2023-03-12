@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import EditEventPage from "./pages/EditEvent";
+import Error from "./pages/Error";
 import EventDetailPage from "./pages/EventDetail";
 import EventsPage, { loader as loaderEvents } from "./pages/Events";
 import EventsRootLayout from "./pages/EventsRoot";
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <Error />,
     children: [
       { index: true, element: <HomePage /> },
       {
