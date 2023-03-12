@@ -1,29 +1,35 @@
-import React from "react";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Header from "./components/UI/Header";
-import Error from "./pages/Error";
-import Home from "./pages/Home";
-import Product from "./pages/Product";
-import ProductDetails from "./pages/ProductDetails";
-import Rootlayour from "./pages/Root";
+import EditEventPage from './pages/EditEvent';
+import EventDetailPage from './pages/EventDetail';
+import EventsPage from './pages/Events';
+import EventsRootLayout from './pages/EventsRoot';
+import HomePage from './pages/Home';
+import NewEventPage from './pages/NewEvent';
+import RootLayout from './pages/Root';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    errorElement: <Error />,
-    element: <Rootlayour />,
-    // absolute path start with / and if remove / then call it relative path
+    path: '/',
+    element: <RootLayout />,
     children: [
-      { index: true, element: <Home /> }, // path:''
-      { path: "products", element: <Product /> },
-      { path: "products/:productID", element: <ProductDetails /> },
+      { index: true, element: <HomePage /> },
+      {
+        path: 'events',
+        element: <EventsRootLayout />,
+        children: [
+          { index: true, element: <EventsPage /> },
+          { path: ':eventId', element: <EventDetailPage /> },
+          { path: 'new', element: <NewEventPage /> },
+          { path: ':eventId/edit', element: <EditEventPage /> },
+        ],
+      },
     ],
   },
 ]);
 
-const App = () => {
+function App() {
   return <RouterProvider router={router} />;
-};
+}
 
 export default App;
