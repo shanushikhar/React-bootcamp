@@ -2,21 +2,23 @@ import { useLoaderData } from "react-router-dom";
 import EventsList from "../components/EventsList";
 
 function EventsPage() {
-  const events = useLoaderData();
-  return (
-    <>
-      <EventsList events={events} />
-    </>
-  );
+  const data = useLoaderData();
+  // if (data.isError) {
+  //   return <h1>{data.message}</h1>;
+  // }
+  const eventsData = data.events;
+
+  return <EventsList events={eventsData} />;
 }
 
 export default EventsPage;
 
 export async function loader() {
-  const res = await fetch("http://localhost:8080/events");
-  if (!res.ok) {
+  const response = await fetch("http://localhost:8080/events");
+  if (!response.ok) {
+    //return { isError: true, message: "Something goes wrong!!!" };
+    throw { message: "Something goes wrong!!!" };
   } else {
-    const data = await res.json();
-    return data.events;
+    return response;
   }
 }
