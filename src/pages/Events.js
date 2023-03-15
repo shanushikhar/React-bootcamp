@@ -21,7 +21,7 @@ export async function loader() {
     return json(
       { message: "Could not fetch events" },
       {
-        response: 500,
+        status: 500,
       }
     );
   } else {
