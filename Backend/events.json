@@ -1,18 +1,1 @@
-{
-  "events": [
-    {
-      "id": "e1",
-      "title": "1st dummy events",
-      "date": "2023-02-22",
-      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-      "description": "Join this amazing event and connect with fellow developers."
-    },
-    {
-      "id": "e2",
-      "title": "2nd dummy events",
-      "date": "2023-02-24",
-      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-      "description": "Join this amazing event and connect with fellow developers."
-    }
-  ]
-}
+{"events":[{"title":"hello there","image":"https://images-assets.nasa.gov/video/NHQ_2018_0131_Super%20Blue%20Moon%20Lunar%20Eclipse/NHQ_2018_0131_Super%20Blue%20Moon%20Lunar%20Eclipse~thumb.jpg","date":"2023-04-07","description":"hello there\n","id":"e1bb4b93-71cc-4e3d-9064-260f6a98e002"},{"title":"testing","image":"https://images-assets.nasa.gov/video/NHQ_2018_0131_Super%20Blue%20Moon%20Lunar%20Eclipse/NHQ_2018_0131_Super%20Blue%20Moon%20Lunar%20Eclipse~thumb.jpg","date":"2023-04-06","description":"moon image","id":"46abc32b-5a43-416a-9db9-b7e46083ef07"},{"title":"test","image":"https://images-assets.nasa.gov/video/NHQ_2018_0131_Super%20Blue%20Moon%20Lunar%20Eclipse/NHQ_2018_0131_Super%20Blue%20Moon%20Lunar%20Eclipse~thumb.jpg","date":"2023-03-02","description":"Nasa Moon image","id":"894bfcb1-89ac-418f-a105-96fceee114e1"},{"id":"e1","title":"1st dummy events","date":"2023-02-22","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."},{"id":"e2","title":"2nd dummy events","date":"2023-02-24","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."}]}
