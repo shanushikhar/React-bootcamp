@@ -37,5 +37,10 @@ export async function action({ request }) {
     throw json({ message: "Something went wrong with user" }, { status: 422 });
   }
 
+  const responseData = await res.json();
+  const token = responseData.token;
+
+  localStorage.setItem("token", token);
+
   return redirect("/");
 }
