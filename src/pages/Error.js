@@ -1,30 +1,31 @@
-import React from "react";
-import { useRouteError } from "react-router-dom";
-import MainNavigation from "../components/MainNavigation";
+import { useRouteError } from 'react-router-dom';
+import MainNavigation from '../components/MainNavigation';
 
-function Error() {
+import PageContent from '../components/PageContent';
+
+function ErrorPage() {
   const error = useRouteError();
-  console.log({ error });
-  let message = "An Error Occured...",
-    title = "Something went wrong!";
-  if (error.status == 500) {
+
+  let title = 'An error occurred!';
+  let message = 'Something went wrong!';
+
+  if (error.status === 500) {
     message = error.data.message;
   }
 
-  if (error.status == 404) {
-    title = "Page not found!!";
-    message = "could not find the page..";
+  if (error.status === 404) {
+    title = 'Not found!';
+    message = 'Could not find resource or page.';
   }
 
   return (
     <>
       <MainNavigation />
-      <div style={{ textAlign: "center" }}>
-        <h1>{title}</h1>
-        {message}
-      </div>
+      <PageContent title={title}>
+        <p>{message}</p>
+      </PageContent>
     </>
   );
 }
 
-export default Error;
+export default ErrorPage;
