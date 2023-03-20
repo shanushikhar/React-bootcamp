@@ -1,5 +1,6 @@
-import { json, redirect } from "react-router-dom";
-import AuthForm from "../components/AuthForm";
+import { json, redirect } from 'react-router-dom';
+
+import AuthForm from '../components/AuthForm';
 
 function AuthenticationPage() {
   return <AuthForm />;
@@ -8,39 +9,42 @@ function AuthenticationPage() {
 export default AuthenticationPage;
 
 export async function action({ request }) {
-  const url = new URL(request.url).searchParams;
-  const mode = url.get("mode") || "login";
+  const searchParams = new URL(request.url).searchParams;
+  const mode = searchParams.get('mode') || 'login';
 
-  if (mode !== "login" && mode !== "signup") {
-    throw json({ message: "Can not create User profile" }, { status: 422 });
+  if (mode !== 'login' && mode !== 'signup') {
+    throw json({ message: 'Unsupported mode.' }, { status: 422 });
   }
 
-  const dataForm = await request.formData();
-
-  const data = {
-    email: dataForm.get("email"),
-    password: dataForm.get("password"),
+  const data = await request.formData();
+  const authData = {
+    email: data.get('email'),
+    password: data.get('password'),
   };
 
-  const res = await fetch("http://localhost:8080/" + mode, {
-    method: "POST",
+  const response = await fetch('http://localhost:8080/' + mode, {
+    method: 'POST',
     headers: {
-      "Content-type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(authData),
   });
 
-  if (res.status == 422 || res.status == 401) {
-    return res;
-  }
-  if (!res.ok) {
-    throw json({ message: "Something went wrong with user" }, { status: 422 });
+  if (response.status === 422 || response.status === 401) {
+    return response;
   }
 
-  const responseData = await res.json();
-  const token = responseData.token;
+  if (!response.ok) {
+    throw json({ message: 'Could not authenticate user.' }, { status: 500 });
+  }
 
-  localStorage.setItem("token", token);
+  const resData = await response.json();
+  const token = resData.token;
 
-  return redirect("/");
+  localStorage.setItem('token', token);
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.setItem('expiration', expiration.toISOString());
+
+  return redirect('/');
 }

@@ -19,7 +19,4 @@
 .list a:hover,
 .list a.active {
   color: var(--color-primary-800);
-  text-decoration: underline;
-  text-decoration-thickness: 4px;
-  
 }
